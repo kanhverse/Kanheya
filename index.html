@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanheya Lal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF8F4;
+    --ink: #1A1A18;
+    --ink-muted: #5A5A56;
+    --ink-light: #9A9A94;
+    --gold: #B8860B;
+    --gold-light: #F0E6C0;
+    --border: rgba(26,26,24,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(250,248,244,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    transition: all 0.3s ease;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    right: -2rem; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 22vw;
+    font-weight: 700;
+    color: rgba(184,134,11,0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .hero-content {
+    max-width: 700px;
+    position: relative; z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold-light);
+    background: var(--gold-light);
+    padding: 0.3rem 0.9rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-desc {
+    font-size: 1.15rem;
+    color: var(--ink-muted);
+    max-width: 520px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.7s 0.2s ease both;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.85rem 2rem;
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: #2d2d28; transform: translateY(-1px); }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: transparent;
+    color: var(--ink);
+    padding: 0.85rem 2rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--border);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  }
+
+  .btn-secondary:hover { border-color: var(--ink); background: rgba(26,26,24,0.04); transform: translateY(-1px); }
+
+  /* SECTIONS COMMON */
+  section { padding: 6rem 4rem; }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  /* ABOUT */
+  #about {
+    background: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-left .section-title { margin-bottom: 1.5rem; }
+
+  .about-text {
+    color: var(--ink-muted);
+    font-size: 1rem;
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .stat-num span { color: var(--gold); font-size: 1.4rem; }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--ink-light);
+    letter-spacing: 0.05em;
+    margin-top: 0.35rem;
+    text-transform: uppercase;
+  }
+
+  .about-visual { position: relative; }
+
+  .about-card {
+    background: var(--cream);
+    border: 0.5px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 2.5rem;
+    position: relative;
+  }
+
+  .about-card::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: -8px; right: 8px; bottom: 8px;
+    border: 1px solid var(--gold-light);
+    border-radius: 0.5rem;
+    z-index: -1;
+  }
+
+  .kl-monogram {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 1rem;
+    opacity: 0.15;
+  }
+
+  .about-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-quote-attr {
+    font-size: 0.8rem;
+    color: var(--ink-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* SERVICES */
+  #services { background: var(--cream); }
+
+  .services-header { max-width: 540px; margin-bottom: 4rem; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: #fff;
+    border: 0.5px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    cursor: default;
+  }
+
+  .service-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(26,26,24,0.07);
+  }
+
+  .service-icon {
+    width: 44px; height: 44px;
+    background: var(--gold-light);
+    border-radius: 0.5rem;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .service-icon svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
+
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+
+  .service-desc {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* WORK */
+  #work { background: #fff; }
+
+  .work-header { max-width: 540px; margin-bottom: 4rem; }
+
+  .work-list { display: flex; flex-direction: column; gap: 1px; border-top: 0.5px solid var(--border); }
+
+  .work-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    padding: 1.8rem 0;
+    border-bottom: 0.5px solid var(--border);
+    transition: background 0.15s;
+    cursor: default;
+  }
+
+  .work-item:hover { background: var(--cream); margin: 0 -4rem; padding: 1.8rem 4rem; }
+
+  .work-year {
+    font-size: 0.8rem;
+    color: var(--ink-light);
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+
+  .work-info-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .work-info-role {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    font-weight: 300;
+  }
+
+  .work-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+    font-weight: 500;
+  }
+
+  .work-tag.active { background: #E6F5EE; color: #1D7A4A; }
+  .work-tag.past { background: var(--gold-light); color: var(--gold); }
+
+  /* CONTACT */
+  #contact {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+  }
+
+  #contact .section-label { color: rgba(240,230,192,0.7); }
+  #contact .section-title { color: var(--cream); margin-bottom: 1rem; }
+
+  .contact-sub {
+    color: rgba(250,248,244,0.55);
+    font-size: 1rem;
+    max-width: 420px;
+    margin: 0 auto 3rem;
+    font-weight: 300;
+  }
+
+  .contact-links {
+    display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 4rem;
+  }
+
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.6rem;
+    border: 1px solid rgba(250,248,244,0.15);
+    border-radius: 0.25rem;
+    color: rgba(250,248,244,0.75);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(184,134,11,0.06);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    border-top: 0.5px solid rgba(250,248,244,0.08);
+    padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: rgba(250,248,244,0.3);
+    letter-spacing: 0.04em;
+  }
+
+  .footer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: rgba(250,248,244,0.5);
+    letter-spacing: 0.02em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 7rem 1.5rem 3rem; }
+    #about { grid-template-columns: 1fr; gap: 2.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .work-item { grid-template-columns: 60px 1fr; }
+    .work-tag { display: none; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#hero">KL<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Expertise</a></li>
+    <li><a href="#work">Ventures</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">KL</div>
+  <div class="hero-content">
+    <div class="hero-tag">Entrepreneur &amp; Business Leader</div>
+    <h1 class="hero-name">Kanheya<br><em>Lal</em></h1>
+    <p class="hero-desc">Building ventures that create lasting value. I partner with ideas, teams, and markets to turn ambition into sustainable business.</p>
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">View my ventures →</a>
+      <a href="#contact" class="btn-secondary">Let's connect</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <p class="section-label">About me</p>
+    <h2 class="section-title">A builder at heart</h2>
+    <p class="about-text">I'm an entrepreneur who believes great businesses are built at the intersection of clear thinking, bold execution, and genuine relationships.</p>
+    <p class="about-text">My journey has been shaped by curiosity — exploring different industries, identifying gaps, and bringing together the right people to build something meaningful.</p>
+    <div class="about-stats">
+      <div>
+        <div class="stat-num">10<span>+</span></div>
+        <div class="stat-label">Years experience</div>
+      </div>
+      <div>
+        <div class="stat-num">5<span>+</span></div>
+        <div class="stat-label">Ventures built</div>
+      </div>
+      <div>
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Ideas in progress</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-visual reveal">
+    <div class="about-card">
+      <div class="kl-monogram">KL</div>
+      <p class="about-quote">"Business is not just about profit — it is about purpose, people, and the problems worth solving."</p>
+      <p class="about-quote-attr">— Kanheya Lal</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="services">
+  <div class="services-header reveal">
+    <p class="section-label">What I do</p>
+    <h2 class="section-title">Areas of expertise</h2>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="service-title">Business Strategy</div>
+      <p class="service-desc">Defining the direction, competitive positioning, and long-term vision that turns an idea into a scalable enterprise.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="service-title">Venture Building</div>
+      <p class="service-desc">From zero to one — identifying opportunities, assembling teams, and building businesses from the ground up.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="service-title">Partnerships &amp; Growth</div>
+      <p class="service-desc">Building strategic alliances and growth frameworks that accelerate traction and create sustainable competitive advantages.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </div>
+      <div class="service-title">Operations &amp; Scaling</div>
+      <p class="service-desc">Designing efficient systems and processes that allow businesses to grow without breaking at the seams.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <div class="service-title">Digital &amp; Innovation</div>
+      <p class="service-desc">Leveraging technology and digital channels to future-proof businesses and unlock new revenue streams.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="service-title">Mentorship &amp; Advisory</div>
+      <p class="service-desc">Guiding founders and business owners through the challenges of building companies with clarity and conviction.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VENTURES -->
+<section id="work">
+  <div class="work-header reveal">
+    <p class="section-label">My ventures</p>
+    <h2 class="section-title">Building things that matter</h2>
+  </div>
+
+  <div class="work-list">
+    <div class="work-item reveal">
+      <div class="work-year">2022 –</div>
+      <div>
+        <div class="work-info-name">Venture One</div>
+        <div class="work-info-role">Founder &amp; CEO · Core business description here</div>
+      </div>
+      <span class="work-tag active">Active</span>
+    </div>
+
+    <div class="work-item reveal">
+      <div class="work-year">2020 –</div>
+      <div>
+        <div class="work-info-name">Venture Two</div>
+        <div class="work-info-role">Co-Founder · Industry or product focus</div>
+      </div>
+      <span class="work-tag active">Active</span>
+    </div>
+
+    <div class="work-item reveal">
+      <div class="work-year">2017</div>
+      <div>
+        <div class="work-info-name">Venture Three</div>
+        <div class="work-info-role">Founder · Early-stage startup, domain area</div>
+      </div>
+      <span class="work-tag past">Exited</span>
+    </div>
+
+    <div class="work-item reveal">
+      <div class="work-year">2015</div>
+      <div>
+        <div class="work-info-name">Venture Four</div>
+        <div class="work-info-role">Founder · First venture, learning ground</div>
+      </div>
+      <span class="work-tag past">Completed</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Get in touch</p>
+  <h2 class="section-title">Let's build something together</h2>
+  <p class="contact-sub">Whether you have a business idea, a partnership in mind, or just want to talk — I'm always open to a good conversation.</p>
+
+  <div class="contact-links">
+    <a href="mailto:hello@kanheyalal.com" class="contact-link">✉ Email me</a>
+    <a href="https://linkedin.com/in/kanheyalal" class="contact-link">in LinkedIn</a>
+    <a href="https://twitter.com/kanheyalal" class="contact-link">𝕏 Twitter</a>
+    <a href="#" class="contact-link">↓ Download CV</a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2026 Kanheya Lal. All rights reserved.</span>
+  <span class="footer-name">Kanheya Lal</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
